@@ -5,5 +5,7 @@ The purpose of this repository is to create an aspect-based sentiment analysis (
 wget https://s3.amazonaws.com/amazon-reviews-pds/tsv/amazon_reviews_us_Electronics_v1_00.tsv.gz
 
 gunzip amazon_reviews_us_Electronics_v1_00.tsv.gz
+
 mkdir Data
+
 mv amazon_reviews_us_Electronics_v1_00.tsv Data/amazon_reviews_us_Electronics_v1_00.tsv
