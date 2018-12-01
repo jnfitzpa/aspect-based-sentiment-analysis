@@ -1,3 +1,6 @@
+# Training Data
+Data/*
+
 # Prerequisites
 *.d
 
@@ -15,6 +18,11 @@
 *.so
 *.dylib
 *.dll
+*.joblib
+*.h5
+*.model
+
+
 
 # Fortran module files
 *.mod
