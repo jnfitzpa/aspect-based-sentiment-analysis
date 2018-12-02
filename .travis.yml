@@ -1,0 +1,20 @@
+
+language: node_js
+node_js: "8.11.3"
+
+cache:
+  directories:
+    - "node_modules"
+    - $HOME/.npm
+
+deploy:
+  - provider: elasticbeanstalk
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    region: us-east-2
+    app: absa-api
+    env: AbsaApi-env
+    bucket_name: absa-api-bucket
+    on:
+      repo: jnfitzpa/aspect-based-sentiment-analysis
+      branch: master
