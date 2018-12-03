@@ -21,6 +21,7 @@ Data/*
 *.joblib
 *.h5
 *.model
+*.npy
 
 
 

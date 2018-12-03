@@ -2,6 +2,8 @@ from sklearn.externals import joblib
 from keras import backend as K
 from keras.models import load_model
 from gensim.models import Word2Vec
+from nltk import tokenize 
+from nltk.stem.wordnet import WordNetLemmatizer
 import numpy as np
 import re
 
@@ -10,6 +12,20 @@ MAX_SENT_WORDS = 50
 num_classes = 5
 
 #sentences = ['this does not work', 'this is an ok product']
+
+def preprocess(paragraph):
+    sentences = tokenize.sent_tokenize(paragraph.lower())
+    lemma = WordNetLemmatizer()
+    clean_sentences = []
+    for sentence in sentences:
+        sentence = re.sub('[^\w\s]','',sentence)
+        lemma_sent = []
+        for word in sentence.split():
+            word = lemma.lemmatize(word)
+            lemma_sent.append(word)
+        clean_sentences.append(' '.join(lemma_sent))
+    return clean_sentences
+
 
 def sentiments(sentences):
     model = load_model('cnn_absa_model.h5')
@@ -31,7 +47,11 @@ def sentiments(sentences):
         for wdx, word in enumerate(sentence):
             if wdx >= MAX_SENT_WORDS:
                 break
-            X[sdx,wdx,:] = w2v_model.wv[word]           
+            try:
+                X[sdx,wdx,:] = w2v_model.wv[word]
+            except:
+                print(word + ' not in vocabulary')
+                
     
     
     if K.image_data_format() == 'channels_first':
